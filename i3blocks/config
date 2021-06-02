@@ -1,0 +1,81 @@
+# i3blocks configuration file
+#
+# The i3blocks man page describes the usage of the binary,
+# and its website describes the configuration:
+#
+#     https://vivien.github.io/i3blocks
+
+
+# Global properties
+separator=true
+separator_block_width=20
+command=/usr/libexec/i3blocks/$BLOCK_NAME
+separator=true
+border_top=0
+border_left=0
+border_right=0
+border_bottom=2
+#border=#ffffff55
+
+[documentation]
+full_text=Documentation
+website=https://vivien.github.io/i3blocks
+command=xdg-open "$website"
+color=#f12711
+
+[greetings]
+color=#f5af19
+command=echo "$USER"
+interval=once
+
+[time]
+markup=pango //for big/small font
+command=LC_ALL="zh_CN.UTF-8" date '+%b%d日(%A) %H:%M'
+#command=date '+<big>%H</big>:%M<small>:%S</small>'
+interval=1
+
+
+[aqi]
+#command=~/.config/i3/bin/aqi | grep '北京'|awk '{print $1 $2 "<big>"$3"</big>" "<small>"$7 $8"</small>"}'
+command=~/.config/i3/bin/aqi | grep '北京'|awk '{$8=substr($8, 1, length($8)-1) ; print $1" "$2" "$3" / "$7 $8}'
+#command= echo "<big>$USER</big>"
+interval=240
+color=#50cf28
+
+# Fetch the public IP address only on startup
+[public-ip]
+command=wget --no-proxy -qO - icanhazip.com|awk '{print "IP:"$0}'
+interval=once
+color=#ca1852
+
+[ip]
+command=~/.config/i3/bin/ipspeedonly.sh eth0
+interval=5
+color=#91E78B
+
+[ip]
+command=~/.config/i3/bin/ipspeedonly.sh eth1
+interval=5
+color=#f42f90
+
+# Guess the weather hourly
+[weather]
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+interval=3600
+color=#A4C2F4
+
+
+[click]
+full_text=Click me!
+command=echo "Got clicked with button $button"
+color=#F79494
+
+#[disk]
+#label=Data:
+#instance=/data
+#interval=30
+#
+
+[restart]
+full_text=Restart
+command=i3-msg -q restart
