@@ -17,16 +17,16 @@ border_right=0
 border_bottom=2
 #border=#ffffff55
 
-[documentation]
-full_text=Documentation
-website=https://vivien.github.io/i3blocks
-command=xdg-open "$website"
-color=#f12711
+#[documentation]
+#full_text=Documentation
+#website=https://vivien.github.io/i3blocks
+#command=xdg-open "$website"
+#color=#f12711
 
-[greetings]
-color=#f5af19
-command=echo "$USER"
-interval=once
+#[greetings]
+#color=#f5af19
+#command=echo "$USER"
+#interval=once
 
 [time]
 #markup=pango //for big/small font
@@ -57,9 +57,14 @@ color=#50cf28
 #separator=false
 #command=uptime|awk '{print $10 $11 $12}'
 
+[temperature]
+command=sensors |grep -i package | awk '{print "Temp: " $4}'
+interval=60
+color=#4ba0fd
+
 [cpuload]
-command=uptime|awk '{print "CPU:"$10 $11 $12}'
-interval=10
+command=uptime|awk '{print "CPU: "$(NF-2) $(NF-1) $NF}'
+interval=60
 color=#f22d0b
 
 # Fetch the public IP address only on startup
