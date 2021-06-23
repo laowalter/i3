@@ -35,6 +35,13 @@ command=LC_ALL="zh_CN.UTF-8" date '+%b%d日 (%A) %H:%M'
 interval=1
 
 
+# Guess the weather hourly
+[weather]
+#command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 17-|head -4|xargs echo|awk '{print $1 " " $2$3 " "$5$6$7 " " $8$9}'
+interval=3600
+color=#A4C2F4
+
 [aqi]
 #command=~/.config/i3/bin/aqi | grep '北京'|awk '{print $1 $2 "<big>"$3"</big>" "<small>"$7 $8"</small>"}'
 #command=~/.config/i3/bin/aqi | grep '北京'|awk '{$8=substr($8, 1, length($8)-1) ; print $1" "$2" "$3" / "$7 $8}'
@@ -58,42 +65,35 @@ color=#50cf28
 #command=uptime|awk '{print $10 $11 $12}'
 
 [temperature]
-command=sensors |grep -i package | awk '{print "Temp: " $4}'
+command=sensors |grep -i package | awk '{print "" $4}'
 interval=60
 color=#4ba0fd
 
 [cpuload]
-command=uptime|awk '{print "CPU: "$(NF-2) $(NF-1) $NF}'
+command=uptime|awk '{print $(NF-2) $(NF-1) $NF}'
 interval=60
 color=#f22d0b
 
 # Fetch the public IP address only on startup
 [public-ip]
-command=wget --no-proxy -qO - icanhazip.com|awk '{print "IP:"$0}'
+command=wget --no-proxy -qO - icanhazip.com|awk '{print $0}'
 interval=once
 color=#ca1852
 
-[ip]
-command=~/.config/i3/bin/ipspeedonly.sh eth0
-interval=300
-color=#91E78B
+#[ip]
+#command=~/.config/i3/bin/ipspeedonly.sh eth0
+#interval=300
+#color=#91E78B
 
-[ip]
-command=~/.config/i3/bin/ipspeedonly.sh eth1
-interval=300
-color=#f42f90
+#[ip]
+#command=~/.config/i3/bin/ipspeedonly.sh eth1
+#interval=300
+#color=#f42f90
 
-# Guess the weather hourly
-[weather]
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-interval=3600
-color=#A4C2F4
-
-
-[click]
-full_text=Click me!
-command=echo "Got clicked with button $button"
-color=#F79494
+#[click]
+#full_text=Click me!
+#command=echo "Got clicked with button $button"
+#color=#F79494
 
 [disk]
 label=Home:
@@ -106,5 +106,5 @@ instance=/data
 interval=30
 
 [restart]
-full_text=Restart
+full_text="Restart"
 command=i3-msg -q restart
