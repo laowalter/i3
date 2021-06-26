@@ -38,7 +38,8 @@ interval=1
 # Guess the weather hourly
 [weather]
 #command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 17-|head -4|xargs echo|awk '{print $1 " " $2$3 " "$5$6$7 " " $8$9}'
+#command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 17-|head -4|xargs echo|awk '{print $1 " " $2$3 "  "$5$6 "  " $7$8}'
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 17-|head -4|xargs echo |perl -pe 's/(\d+. *°C)(.*km\/h)\s+(\d+\s+km)/ $1    $2   $3/'
 interval=3600
 color=#A4C2F4
 
