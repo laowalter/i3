@@ -17,53 +17,23 @@ border_right=0
 border_bottom=2
 #border=#ffffff55
 
-#[documentation]
-#full_text=Documentation
-#website=https://vivien.github.io/i3blocks
-#command=xdg-open "$website"
-#color=#f12711
-
-#[greetings]
-#color=#f5af19
-#command=echo "$USER"
-#interval=once
-
 [time]
 #markup=pango //for big/small font
-command=LC_ALL="zh_CN.UTF-8" date '+%b%d日 (%A) %H:%M'
 #command=date '+<big>%H</big>:%M<small>:%S</small>'
+command=LC_ALL="zh_CN.UTF-8" date '+%b%d日 (%A) %H:%M'
 interval=1
-
 
 # Guess the weather hourly
 [weather]
-#command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-#command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 17-|head -4|xargs echo|awk '{print $1 " " $2$3 "  "$5$6 "  " $7$8}'
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 17-|head -4|xargs echo |perl -pe 's/(\d+. *°C)(.*km\/h)\s+(\d+\s+km)/ $1    $2   $3/'
+# REF https://github.com/chubin/wttr.in
+command=~/.config/i3/bin/wttr
 interval=3600
 color=#A4C2F4
 
 [aqi]
-#command=~/.config/i3/bin/aqi | grep '北京'|awk '{print $1 $2 "<big>"$3"</big>" "<small>"$7 $8"</small>"}'
-#command=~/.config/i3/bin/aqi | grep '北京'|awk '{$8=substr($8, 1, length($8)-1) ; print $1" "$2" "$3" / "$7 $8}'
 command=~/.config/i3/bin/aqi | grep '北京'|awk '{$8=substr($8, 1, length($8)-1) ; print $2" "$3" / "$7 $8}'
-#command= echo "<big>$USER</big>"
 interval=900
 color=#50cf28
-
-## CPU usage
-#[cpu_label]
-#full_text=<span background="#00FF00" foreground="black">CPU</span>
-#markup=pango
-#full_text=<span foreground="red">CPU</span>
-#separator=false
-# 
-## The script may be called with -w and -c switches to specify thresholds,
-## see the script for details.
-#[cpu_usage]
-#interval=10
-#separator=false
-#command=uptime|awk '{print $10 $11 $12}'
 
 [temperature]
 command=sensors |grep -i package | awk '{print "" $4}'
@@ -96,15 +66,15 @@ color=#ca1852
 #command=echo "Got clicked with button $button"
 #color=#F79494
 
-[disk]
-label=Home:
-instance=/home
-interval=30
+#[disk]
+#label=Home:
+#instance=/home
+#interval=30
 
-[disk]
-label=Data:
-instance=/data
-interval=30
+#[disk]
+#label=Data:
+#instance=/data
+#interval=30
 
 [restart]
 full_text="Restart"
