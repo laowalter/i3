@@ -9,8 +9,8 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-#set $mod Mod1
-set $mod Mod4
+set $mod Mod1
+#set $mod Mod4
 
 # set background
 #exec --no-startup-id feh --bg-scale /data/album/photos/2019/2019-810.jpg
